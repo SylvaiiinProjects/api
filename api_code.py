@@ -8,13 +8,19 @@ headers = {
   'Authorization': 'bearer {}'.format(os.environ['FARMWARE_TOKEN']),
   'content-type': "application/json"}
 
-response = requests.get(os.environ['FARMWARE_URL'] + 'api/v1/bot/state',
+def get_data():
+	response = requests.get(os.environ['FARMWARE_URL'] + 'api/v1/bot/state',
               headers=headers)
+	try:
+	    bot_state = response.json()
+            pin_64_value = bot_state['pins']['64']['value']
+        except KeyError:
+	    pin_64_value = None
+        return pin_64_value
 
-bot_state = response.json()
-pin_13_value = bot_state['pins']['13']['value']
 
-
+if __name__='__main__':
+	get_data()
 """
 'Get specific data (such as timezone) from the FarmBot Web App.'
 
