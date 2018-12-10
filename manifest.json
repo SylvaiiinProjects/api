@@ -3,12 +3,12 @@
  "language": "python",
  "author": "SV",
  "description": ".",
- "version": "1.0.2",
+ "version": "1.0.3",
  "min_os_version_major": 6,
  "url": "https://raw.githubusercontent.com/SylvaiiinProjects/api/master/manifest.json",
  "zip": "https://github.com/SylvaiiinProjects/api/archive/master.zip",
  "executable": "python",
- "args": ["Log_data-master/api_code.py"],
+ "args": ["api-master/api_code.py"],
  "config": [
    
    
