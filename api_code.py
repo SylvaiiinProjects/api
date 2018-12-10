@@ -28,20 +28,22 @@ def data(value):
 def get_point():
     """ ` """
     response = requests.get(
-        os.environ['FARMWARE_URL'] + 'api/points',
+        os.environ['FARMWARE_URL'] + 'api/device',
         headers=HEADERS)
     try:
         #value = response.json()['args']['location']['args']['x']
-	value = response.json()
+	device_data = response.json()
+	timezone_string = device_data['timezone']
+	tz_offset_hours = device_data['tz_offset_hrs']
     except KeyError:
-        value = None
-    if value is None:
+        tz_offset_hours = None
+    if tz_offset_hours is None:
         data(5)
         sys.exit(0)
     else:
-        data(value)
+        data(tz_offset_hours)
         sys.exit(0)
-    return value
+    return tz_offset_hours
 
 
 def post(wrapped_data):
@@ -51,6 +53,7 @@ def post(wrapped_data):
                   data=payload, headers=HEADERS)
 
 if __name__ == '__main__':
-        
+       data(5)
+       sys.exit(0) 
        get_point()
     
