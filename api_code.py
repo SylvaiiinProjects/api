@@ -31,7 +31,8 @@ def get_point():
         os.environ['FARMWARE_URL'] + 'api/points',
         headers=HEADERS)
     try:
-        value = response.json()['args']['location']['args']['x']
+        #value = response.json()['args']['location']['args']['x']
+	value = response.json()
     except KeyError:
         value = None
     if value is None:
