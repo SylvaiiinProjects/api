@@ -13,11 +13,11 @@ import requests
 
 #points = app.get('points')
 
-headers = {'Authorization': 'Bearer ' + os.environ['API_TOKEN'],
+headers = {'Authorization': 'Bearer ' + os.environ['FARMWARE_TOKEN'],
            'content-type': "application/json"}
 
 response = requests.get('https://my.farmbot.io/api/points', headers=headers)
-points = response.json()
+points = response.json()['kind']['args']['location']['args']['x']
 
 def post(wrapped_data):
     """Send the Celery Script command."""
@@ -27,7 +27,7 @@ def post(wrapped_data):
 
 def log(value):
     
-    message = '[] point  is {}.'.format(PIN,value)
+    message = '[] point  is {}.'.format(value)
     wrapped_message = {
         'kind': 'send_message',
         'args': {
@@ -36,8 +36,8 @@ def log(value):
     post(wrapped_message)
 
 log(5)
-p=points(['x'])
-log(p)
+#p=points(['x'])
+log(points)
 
 """
 # Exemple 2
