@@ -7,11 +7,11 @@ import requests
 headers = {
   'Authorization': 'bearer {}'.format(os.environ['FARMWARE_TOKEN']),
   'content-type': "application/json"}
+
 response = requests.get(os.environ['FARMWARE_URL'] + 'api/v1/bot/state',
               headers=headers)
 
 bot_state = response.json()
-position_x = bot_state['location_data']['position']['x']
 pin_13_value = bot_state['pins']['13']['value']
 
 
