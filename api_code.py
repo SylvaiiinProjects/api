@@ -8,7 +8,7 @@ import json
 from time import time
 import requests
 
-FARMWARE_NAME = 'Log Value'
+FARMWARE_NAME = 'API'
 HEADERS = {
     'Authorization': 'bearer {}'.format(os.environ['FARMWARE_TOKEN']),
     'content-type': 'application/json'}
@@ -20,9 +20,7 @@ HEADERS = {
 
 
 """ 64 is always taken """
-def get_env(key, type_=int):
-    
-    return type_(os.getenv('{}_{}'.format(FARMWARE_NAME, key),64))
+
 
 def no_data():
     
@@ -44,7 +42,7 @@ def data(value):
             'message': message}}
     post(wrapped_message)
 
-def get_pin_value(pin):
+def get_pin_value():
     """ Sequence `Read Pin` """
     response = requests.get(
         os.environ['FARMWARE_URL'] + 'api/v1/bot/state',
@@ -73,5 +71,5 @@ def post(wrapped_data):
 if __name__ == '__main__':
     PIN = 64   
    
-    get_pin_value(PIN)
+    get_pin_value()
     
