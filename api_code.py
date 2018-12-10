@@ -7,6 +7,7 @@
 # Exemple 1
 
 import os
+import json
 import requests
 #from farmware_tools import app
 
@@ -18,8 +19,26 @@ headers = {'Authorization': 'Bearer ' + os.environ['API_TOKEN'],
 response = requests.get('https://my.farmbot.io/api/points', headers=headers)
 points = response.json()
 
+def post(wrapped_data):
+    """Send the Celery Script command."""
+    payload = json.dumps(wrapped_data)
+    requests.post(os.environ['FARMWARE_URL'] + 'api/v1/celery_script',
+                  data=payload, headers=HEADERS)
+
+def log(value):
+    
+    message = '[] point  is {}.'.format(PIN,value)
+    wrapped_message = {
+        'kind': 'send_message',
+        'args': {
+            'message_type': 'info',
+            'message': message}}
+    post(wrapped_message)
+
+log(5)
 p=points(['x'])
-print(' My points are {}'.format(p))
+log(p)
+
 """
 # Exemple 2
 'Get specific data (such as timezone) from the FarmBot Web App.'
