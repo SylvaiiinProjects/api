@@ -26,7 +26,7 @@ def data(value):
     post(wrapped_message)
 
 def get_point():
-    """ ` """
+    """ 
     response = requests.get(
         os.environ['FARMWARE_URL'] + 'api/device',
         headers=HEADERS)
@@ -44,7 +44,20 @@ def get_point():
         data(tz_offset_hours)
         sys.exit(0)
     return tz_offset_hours
-
+""" response = requests.get(
+        os.environ['FARMWARE_URL'] + 'api/v1/bot/state',
+        headers=HEADERS)
+    try:
+        value = response.json()['pins']['64']['value']
+    except KeyError:
+        value = None
+    if value is None:
+        data(value)
+        sys.exit(0)
+    else:
+        data(value)
+        sys.exit(0)
+    return value
 
 def post(wrapped_data):
     """Send the Celery Script command."""
