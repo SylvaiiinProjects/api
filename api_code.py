@@ -1,0 +1,39 @@
+#! /usr/bin/env python
+
+#The API is used to access the database (plants, sequences, points, etc.).
+
+## GET
+
+# Exemple 1
+
+import os
+import requests
+#from farmware_tools import app
+
+#points = app.get('points')
+
+headers = {'Authorization': 'Bearer ' + os.environ['API_TOKEN'],
+           'content-type': "application/json"}
+
+response = requests.get('https://my.farmbot.io/api/points', headers=headers)
+points = response.json()
+
+p=points(['x'])
+print(' My points are {}'.format(p))
+"""
+# Exemple 2
+'Get specific data (such as timezone) from the FarmBot Web App.'
+
+import os
+import requests
+
+headers = {'Authorization': 'Bearer ' + os.environ['API_TOKEN'],
+           'content-type': "application/json"}
+response = requests.get('https://my.farmbot.io/api/device', headers=headers)
+device_data = response.json()
+
+# Device timezone info (set via the dropdown in the Web App Device widget)
+timezone_string = device_data['timezone']
+tz_offset_hours = device_data['tz_offset_hrs']
+
+print('My device timezone is: {} (UTC{})'.format(timezone_string, tz_offset_hours)) """
