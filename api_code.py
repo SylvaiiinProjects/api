@@ -18,4 +18,20 @@ device_data = response.json()
 timezone_string = device_data['timezone']
 tz_offset_hours = device_data['tz_offset_hrs']
 	
+def data(value):
+    
+    message = '[time] Timee  is {}.'.format(value)
+    wrapped_message = {
+        'kind': 'send_message',
+        'args': {
+            'message_type': 'info',
+            'message': message}}
+    post(wrapped_message)
 
+def post(wrapped_data):
+    """Send the Celery Script command."""
+    payload = json.dumps(wrapped_data)
+    requests.post(os.environ['FARMWARE_URL'] + 'api/v1/celery_script',
+data=payload, headers=HEADERS)
+
+data(tz_offset_hours)
