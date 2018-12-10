@@ -19,7 +19,7 @@ def get_data():
         return pin_64_value
 
 
-if __name__='__main__':
+if __name__=='__main__':
 	get_data()
 """
 'Get specific data (such as timezone) from the FarmBot Web App.'
