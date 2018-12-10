@@ -9,6 +9,10 @@ import os
 import json
 import requests
 
+HEADERS = {
+    'Authorization': 'bearer {}'.format(os.environ['FARMWARE_TOKEN']),
+    'content-type': 'application/json'}
+
 headers = {'Authorization': 'Bearer ' + os.environ['API_TOKEN'],
            'content-type': "application/json"}
 response = requests.get('https://my.farmbot.io/api/device', headers=headers)
@@ -34,4 +38,5 @@ def post(wrapped_data):
     requests.post(os.environ['FARMWARE_URL'] + 'api/v1/celery_script',
 data=payload, headers=HEADERS)
 
-data(tz_offset_hours)
+if __name__=='__main__':
+	data(tz_offset_hours)
