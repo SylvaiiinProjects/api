@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-
+"""Save sensor value."""
 
 import os
 import sys
@@ -8,16 +8,35 @@ import json
 from time import time
 import requests
 
-FARMWARE_NAME = 'API'
+FARMWARE_NAME = 'Log Value'
 HEADERS = {
     'Authorization': 'bearer {}'.format(os.environ['FARMWARE_TOKEN']),
     'content-type': 'application/json'}
 
+"""def get_input_env():
+    prefix = FARMWARE_NAME        
+    input_title = os.environ.get(prefix+"_pin")
+    return input_title"""
 
+
+""" 64 is always taken """
+def get_env(key, type_=int):
+    
+    return type_(os.getenv('{}_{}'.format(FARMWARE_NAME, key),64))
+
+def no_data():
+    
+    message = '[Soil sensor Value] Pin {} value is not available.'.format(PIN)
+    wrapped_message = {
+        'kind': 'send_message',
+        'args': {
+            'message_type': 'error',
+            'message': message}}
+    post(wrapped_message)
 
 def data(value):
     
-    message = 'Point x   is {}.'.format(value)
+    message = '[Soil sensor Value] Pin {} value  is {}.'.format(PIN,value)
     wrapped_message = {
         'kind': 'send_message',
         'args': {
@@ -25,26 +44,9 @@ def data(value):
             'message': message}}
     post(wrapped_message)
 
-def get_point():
-    """ 
+def get_pin_value(pin):
+    """ Sequence `Read Pin` """
     response = requests.get(
-        os.environ['FARMWARE_URL'] + 'api/device',
-        headers=HEADERS)
-    try:
-        #value = response.json()['args']['location']['args']['x']
-	device_data = response.json()
-	timezone_string = device_data['timezone']
-	tz_offset_hours = device_data['tz_offset_hrs']
-    except KeyError:
-        tz_offset_hours = None
-    if tz_offset_hours is None:
-        data(5)
-        sys.exit(0)
-    else:
-        data(tz_offset_hours)
-        sys.exit(0)
-    return tz_offset_hours
-""" response = requests.get(
         os.environ['FARMWARE_URL'] + 'api/v1/bot/state',
         headers=HEADERS)
     try:
@@ -52,12 +54,15 @@ def get_point():
     except KeyError:
         value = None
     if value is None:
-        data(value)
+        no_data()
         sys.exit(0)
     else:
         data(value)
         sys.exit(0)
     return value
+
+
+
 
 def post(wrapped_data):
     """Send the Celery Script command."""
@@ -65,6 +70,8 @@ def post(wrapped_data):
     requests.post(os.environ['FARMWARE_URL'] + 'api/v1/celery_script',
                   data=payload, headers=HEADERS)
 
-if __name__ == '__main__':       
-       get_point()
+if __name__ == '__main__':
+    PIN = 64   
+   
+    get_pin_value(PIN)
     
