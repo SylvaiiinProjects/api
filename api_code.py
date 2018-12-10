@@ -18,7 +18,7 @@ headers = {'Authorization': 'Bearer ' + os.environ['API_TOKEN'],
            'content-type': "application/json"}
 
 response = requests.get('https://my.farmbot.io/api/points', headers=headers)
-points = response.json()['args']['location']['args']['x']
+points = response.json()
 
 def post(wrapped_data):
     """Send the Celery Script command."""
