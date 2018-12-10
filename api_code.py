@@ -1,33 +1,23 @@
-#! /usr/bin/env python
+#!/usr/bin/env python
 
-#The API is used to access the database (plants, sequences, points, etc.).
 
-## GET
-
-# Exemple 1
 
 import os
+import sys
 import json
+from time import time
 import requests
-#from farmware_tools import app
 
-#points = app.get('points')
+FARMWARE_NAME = 'API'
+HEADERS = {
+    'Authorization': 'bearer {}'.format(os.environ['FARMWARE_TOKEN']),
+    'content-type': 'application/json'}
 
-headers = {'Authorization': 'Bearer ' + os.environ['FARMWARE_TOKEN'],
-           'content-type': "application/json"}
 
-response = requests.get('https://my.farmbot.io/api/points', headers=headers)
-points = response.json()['kind']['args']['location']['args']['x']
 
-def post(wrapped_data):
-    """Send the Celery Script command."""
-    payload = json.dumps(wrapped_data)
-    requests.post(os.environ['FARMWARE_URL'] + 'api/v1/celery_script',
-                  data=payload, headers=HEADERS)
-
-def log(value):
+def data(value):
     
-    message = '[] point  is {}.'.format(value)
+    message = 'Point x   is {}.'.format(value)
     wrapped_message = {
         'kind': 'send_message',
         'args': {
@@ -35,24 +25,31 @@ def log(value):
             'message': message}}
     post(wrapped_message)
 
-log(5)
-#p=points(['x'])
-log(points)
+def get_point():
+    """ ` """
+    response = requests.get(
+        os.environ['FARMWARE_URL'] + 'api/points',
+        headers=HEADERS)
+    try:
+        value = response.json()['args']['location']['args']['x']
+    except KeyError:
+        value = None
+    if value is None:
+        data(5)
+        sys.exit(0)
+    else:
+        data(value)
+        sys.exit(0)
+    return value
 
-"""
-# Exemple 2
-'Get specific data (such as timezone) from the FarmBot Web App.'
 
-import os
-import requests
+def post(wrapped_data):
+    """Send the Celery Script command."""
+    payload = json.dumps(wrapped_data)
+    requests.post(os.environ['FARMWARE_URL'] + 'api/v1/celery_script',
+                  data=payload, headers=HEADERS)
 
-headers = {'Authorization': 'Bearer ' + os.environ['API_TOKEN'],
-           'content-type': "application/json"}
-response = requests.get('https://my.farmbot.io/api/device', headers=headers)
-device_data = response.json()
-
-# Device timezone info (set via the dropdown in the Web App Device widget)
-timezone_string = device_data['timezone']
-tz_offset_hours = device_data['tz_offset_hrs']
-
-print('My device timezone is: {} (UTC{})'.format(timezone_string, tz_offset_hours)) """
+if __name__ == '__main__':
+        
+       get_point()
+    
