@@ -25,13 +25,13 @@ res = requests.get('https://my.farmbot.io/api/points', headers=headers)
 points = res.json()
 
 
-# récupère les coordonnées x,y,z des points de la web app dans une liste
-
+"""récupère les coordonnées x,y,z des points de la web app dans une liste"""
+"""
 coord=[]
 for i in range(len(points)):
 	coord.append(points[i]['x'])
 	coord.append(points[i]['y'])
-	coord.append(points[i]['z'])
+	coord.append(points[i]['z'])"""
 	
 
 #sortedpoints = sorted(points, key=lambda elem: (int(elem['x']), int(elem['y'])))
@@ -53,9 +53,8 @@ def data(value):
 def post(wrapped_data):
     """Send the Celery Script command."""
     payload = json.dumps(wrapped_data)
-    requests.post(os.environ['FARMWARE_URL'] + 'api/v1/celery_script',
-data=payload, headers=HEADERS)
+    requests.post(os.environ['FARMWARE_URL'] + 'api/v1/celery_script', data=payload, headers=HEADERS)
 
 if __name__=='__main__':
-	data(coord)
+	#data(coord)
 	data(tz_offset_hours)
