@@ -24,13 +24,14 @@ device_data = response.json()
 res = requests.get('https://my.farmbot.io/api/points', headers=headers)
 points = res.json()
 
+
+# récupère les coordonnées x,y,z des points de la web app dans une liste
 coord=[]
 for i in range(len(points)):
-	coord.append([)
 	coord.append(points[i]['x'])
 	coord.append(points[i]['y'])
 	coord.append(points[i]['z'])
-	coord.append(])
+	
 
 #sortedpoints = sorted(points, key=lambda elem: (int(elem['x']), int(elem['y'])))
 
