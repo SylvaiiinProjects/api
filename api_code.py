@@ -26,6 +26,7 @@ points = res.json()
 
 
 # récupère les coordonnées x,y,z des points de la web app dans une liste
+
 coord=[]
 for i in range(len(points)):
 	coord.append(points[i]['x'])
