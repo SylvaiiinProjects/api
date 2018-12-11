@@ -15,8 +15,14 @@ HEADERS = {
 
 headers = {'Authorization': 'Bearer ' + os.environ['API_TOKEN'],
            'content-type': "application/json"}
+
+#get device info
 response = requests.get('https://my.farmbot.io/api/device', headers=headers)
 device_data = response.json()
+
+#get points
+res = requests.get('https://my.farmbot.io/api/points', headers=headers)
+points = res.json()
 
 # Device timezone info (set via the dropdown in the Web App Device widget)
 timezone_string = device_data['timezone']
@@ -39,4 +45,4 @@ def post(wrapped_data):
 data=payload, headers=HEADERS)
 
 if __name__=='__main__':
-	data(tz_offset_hours)
+	data(points)
