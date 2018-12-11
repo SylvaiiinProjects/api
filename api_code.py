@@ -26,9 +26,9 @@ points = res.json()
 
 coord=[]
 for i in range(len(points)):
-	coord.append(points[i]['x'])
+	coord.append([points[i]['x'])
 	coord.append(points[i]['y'])
-	coord.append(points[i]['z'])
+	coord.append(points[i]['z']])
 
 #sortedpoints = sorted(points, key=lambda elem: (int(elem['x']), int(elem['y'])))
 
