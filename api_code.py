@@ -23,7 +23,14 @@ device_data = response.json()
 #get points
 res = requests.get('https://my.farmbot.io/api/points', headers=headers)
 points = res.json()
-sortedpoints= sorted(points, key=lambda elem: (int(elem['x']), int(elem['y'])))
+
+coord=[]
+for i in range(len(points)):
+	coord.append(points[i]['x'])
+	coord.append(points[i]['y'])
+	coord.append(points[i]['z'])
+
+#sortedpoints = sorted(points, key=lambda elem: (int(elem['x']), int(elem['y'])))
 
 # Device timezone info (set via the dropdown in the Web App Device widget)
 timezone_string = device_data['timezone']
@@ -46,5 +53,5 @@ def post(wrapped_data):
 data=payload, headers=HEADERS)
 
 if __name__=='__main__':
-	data(sortedpoints)
+	data(coord)
 	data(tz_offset_hours)
