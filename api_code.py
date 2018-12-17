@@ -17,12 +17,12 @@ headers = {'Authorization': 'Bearer ' + os.environ['API_TOKEN'],
            'content-type': "application/json"}
 
 #get device info
-response = requests.get('https://my.farmbot.io/api/device', headers=headers)
+response = requests.get(os.environ['FARMWARE_URL']+ 'api/device', headers=headers)
 device_data = response.json()
 
 #get points
-res = requests.get('https://my.farmbot.io/api/points', headers=headers)
-points = res.json()
+#res = requests.get('https://my.farmbot.io/api/points', headers=headers)
+#points = res.json()
 
 
 """récupère les coordonnées x,y,z des points de la web app dans une liste"""
@@ -42,7 +42,7 @@ tz_offset_hours = device_data['tz_offset_hrs']
 	
 def data(value):
     
-    message = '[time] Timee  is {}.'.format(value)
+    message = '[time] Time  is {}.'.format(value)
     wrapped_message = {
         'kind': 'send_message',
         'args': {
