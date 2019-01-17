@@ -48,8 +48,9 @@ def post(wrapped_data):
 #response = requests.get('https://my.farmbot.io/' + 'api/device', headers=headers)
 #bot_state = response.json()
 #posx = bot_state['location_data']['position']['x']
-response3 = requests.put('https://my.farmbot.io/' + 'api/farmware_envs/11', headers=headers, data=json.dumps({"key": "nedraH",
-  "value": "cihcysP"}))
+user = {'user': {'email': EMAIL, 'password': PASSWORD}}
+response3 = requests.put('https://my.farmbot.io/' + 'api/farmware_envs', headers=headers, data=json.dumps(user))
+response3.json()
 # read element with id 11 in farmware_envs
 response1 = requests.get('https://my.farmbot.io/' + 'api/farmware_envs', headers=headers)
 bot_state1 = response1.json()
