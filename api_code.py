@@ -41,7 +41,7 @@ def post(wrapped_data):
    data=payload, headers=HEADERS)
    
   
-#api_post('device', {"name": "Neo" })
+api_put('farmware_envs', {"name": "Neo" })
 
 response = requests.get('https://my.farmbot.io/' + 'api/farmware_envs', headers=headers)
 bot_state = response.json()
