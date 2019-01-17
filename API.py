@@ -37,7 +37,7 @@ class API():
 
     def __init__(self,farmware):
         self.farmware = farmware
-        self.farmwarename = farmware.farmwarename
+        #self.farmwarename = farmware.farmwarename
         self.api_setup()
 
     def api_get(self, endpoint):
