@@ -3,7 +3,7 @@
 import os
 import requests
 import json
-import API
+from API import API
 
 headers = {
   'Authorization': 'bearer {}'.format(os.environ['FARMWARE_TOKEN']),
