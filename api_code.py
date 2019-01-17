@@ -43,11 +43,14 @@ def post(wrapped_data):
   
 #api_put('farmware_envs', { name: 'new product name' })
 #response = requests.get('https://my.farmbot.io/' + 'api/farmware_envs', headers=headers)
-response = requests.put('https://my.farmbot.io/' + 'api/device/325', headers=headers, data=json.dumps({  "name": "Carrot Overlord"}))
+response = requests.put('https://my.farmbot.io/' + 'api/device/325', headers=headers, data=json.dumps({  "name": "NEOBUILD"}))
 response = requests.get('https://my.farmbot.io/' + 'api/device', headers=headers)
 bot_state = response.json()
 #posx = bot_state['location_data']['position']['x']
+response1 = requests.put('https://my.farmbot.io/' + 'api/farmware_envs/325', headers=headers, data=json.dumps({  "input": "NEOBUILD"}))
+response1 = requests.get('https://my.farmbot.io/' + 'api/farmware_envs', headers=headers)
+bot_state1 = response1.json()
 
-no_data(bot_state)
+no_data(bot_state1)
 
 
