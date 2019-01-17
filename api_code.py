@@ -48,7 +48,7 @@ bot = response4.json()
 #response = requests.get('https://my.farmbot.io/' + 'api/device', headers=headers)
 #bot_state = response.json()
 #posx = bot_state['location_data']['position']['x']
-response3 = requests.put('https://my.farmbot.io/' + 'api/farmware_envs/113', headers=headers, data=json.dumps({'input': 'NEOBUILD'}))
+response3 = requests.put('https://my.farmbot.io/' + 'api/farmware_envs/11', headers=headers, data=json.dumps({"input": "NEOBUILD"}))
 response1 = requests.get('https://my.farmbot.io/' + 'api/farmware_envs', headers=headers)
 bot_state1 = response1.json()
 
