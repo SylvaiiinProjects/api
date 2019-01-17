@@ -39,13 +39,14 @@ def post(wrapped_data):
     payload = json.dumps(wrapped_data) 
     requests.post(os.environ['FARMWARE_URL'] + 'api/v1/celery_script',
    data=payload, headers=HEADERS)
-    
+   
+  
+api_post('farms', str({}))
 
 response = requests.get('https://my.farmbot.io/' + 'api/farms', headers=headers)
 bot_state = response.json()
 #posx = bot_state['location_data']['position']['x']
 
-api_post('farms', {})
 no_data(bot_state)
 
 
