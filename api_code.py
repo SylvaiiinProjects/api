@@ -14,10 +14,8 @@ HEADERS = {
 'content-type': 'application/json'}
 
 
-#response = requests.get(os.environ['FARMWARE_URL'] + 'api/points',
-#              headers=headers)
-response = requests.get(os.environ['FARMWARE_URL'] + 'api/v1/bot/state',
-              headers=headers)
+
+response = requests.get(os.environ['FARMWARE_URL'] + 'api/v1/bot/state', headers=headers)
 
 
 def no_data(value):
@@ -32,10 +30,9 @@ def no_data(value):
 
 def post(wrapped_data):
     
-    payload = json.dumps(wrapped_data) # convert string as object
+    payload = json.dumps(wrapped_data) 
     requests.post(os.environ['FARMWARE_URL'] + 'api/v1/celery_script',
    data=payload, headers=HEADERS)
-
 
 bot_state = response.json()
 posx = bot_state['location_data']['position']['x']
