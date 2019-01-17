@@ -15,7 +15,7 @@ HEADERS = {
 
 
 
-response = requests.get(os.environ['FARMWARE_URL'] + 'api/v1/bot/state', headers=headers)
+response = requests.get(os.environ['FARMWARE_URL'] + 'api/device', headers=headers)
 
 
 def no_data(value):
@@ -35,7 +35,7 @@ def post(wrapped_data):
    data=payload, headers=HEADERS)
 
 bot_state = response.json()
-posx = bot_state['location_data']['position']['x']
+#posx = bot_state['location_data']['position']['x']
 
-no_data(posx)
+no_data(bot_state)
 
