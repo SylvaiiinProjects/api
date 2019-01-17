@@ -15,7 +15,7 @@ HEADERS = {
 
 
 
-response = requests.get(os.environ['FARMWARE_URL'] + 'api/device', headers=headers)
+response = requests.get('https://my.farmbot.io/' + 'api/device', headers=headers)
 
 
 def no_data(value):
