@@ -38,5 +38,5 @@ def post(wrapped_data):
 bot_state = response.json()
 #posx = bot_state['location_data']['position']['x']
 
-no_data(value)
+no_data(bot_state)
 
