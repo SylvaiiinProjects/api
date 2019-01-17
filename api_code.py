@@ -17,12 +17,12 @@ headers = {'Authorization': 'Bearer ' + os.environ['API_TOKEN'],
            'content-type': "application/json"}
 
 #get device info
-response = requests.get(os.environ['FARMWARE_URL']+ 'api/device', headers=headers)
-device_data = response.json()
+#response = requests.get(os.environ['FARMWARE_URL']+ 'api/device', headers=headers)
+#device_data = response.json()
 
 #get points
-#res = requests.get('https://my.farmbot.io/api/points', headers=headers)
-#points = res.json()
+res = requests.get('https://my.farmbot.io/api/points', headers=headers)
+points = res.json()
 
 
 """récupère les coordonnées x,y,z des points de la web app dans une liste"""
@@ -37,8 +37,8 @@ for i in range(len(points)):
 #sortedpoints = sorted(points, key=lambda elem: (int(elem['x']), int(elem['y'])))
 
 # Device timezone info (set via the dropdown in the Web App Device widget)
-timezone_string = device_data['timezone']
-tz_offset_hours = device_data['tz_offset_hrs']
+#timezone_string = device_data['timezone']
+#tz_offset_hours = device_data['tz_offset_hrs']
 	
 def data(value):
     
@@ -56,5 +56,5 @@ def post(wrapped_data):
     requests.post(os.environ['FARMWARE_URL'] + 'api/v1/celery_script', data=payload, headers=HEADERS)
 
 if __name__=='__main__':
-	#data(coord)
-	data(tz_offset_hours)
+	data(coord)
+	#data(tz_offset_hours)
