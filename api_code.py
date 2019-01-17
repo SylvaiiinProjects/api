@@ -14,9 +14,15 @@ HEADERS = {
 'content-type': 'application/json'}
 
 
+def api_post(endpoint, data):
+        """POST to an API endpoint."""
+        response = requests.post('https://my.farmbot.io/api/' + endpoint, headers=headers, json=json.dumps(data))
+        return response.json()
 
-response = requests.get('https://my.farmbot.io/' + 'api/device', headers=headers)
 
+def api_put(endpoint, data):
+        response = requests.put('https://my.farmbot.io/api/'+ endpoint, headers=headers, data=json.dumps(data))
+        return response.json()
 
 def no_data(value):
     
@@ -33,9 +39,13 @@ def post(wrapped_data):
     payload = json.dumps(wrapped_data) 
     requests.post(os.environ['FARMWARE_URL'] + 'api/v1/celery_script',
    data=payload, headers=HEADERS)
+    
 
+response = requests.get('https://my.farmbot.io/' + 'api/farms', headers=headers)
 bot_state = response.json()
 #posx = bot_state['location_data']['position']['x']
 
+api_post('farms', {})
 no_data(bot_state)
+
 
