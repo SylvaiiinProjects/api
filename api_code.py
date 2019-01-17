@@ -55,7 +55,7 @@ w = {
         'args': {
             'message_type': 'info',
             'message': 'wyw'}}
-response = requests.post('https://my.farmbot.io/' + 'api/farmware_env', headers=headers, data=json.dumps(w))
+response = requests.post('https://my.farmbot.io/' + 'api/farmware_env', headers=HEADERS, data=json.dumps(w))
 # read element with id 11 in farmware_envs
 
 
