@@ -14,7 +14,9 @@ HEADERS = {
 'content-type': 'application/json'}
 
 
-response = requests.get(os.environ['FARMWARE_URL'] + 'api/points',
+#response = requests.get(os.environ['FARMWARE_URL'] + 'api/points',
+#              headers=headers)
+response = requests.get(os.environ['FARMWARE_URL'] + 'api/v1/bot/state',
               headers=headers)
 
 
@@ -36,7 +38,7 @@ def post(wrapped_data):
 
 
 bot_state = response.json()
-#posx = bot_state['location_data']['position']['x']
+posx = bot_state['location_data']['position']['x']
 
-no_data(bot_state)
+no_data(posx)
 
