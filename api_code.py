@@ -55,7 +55,7 @@ response = requests.post('https://my.farmbot.io/' + 'api/farmware_env', headers=
 # read element with id 11 in farmware_envs
 
 
-response1 = requests.get('https://my.farmbot.io/' + 'api/farmware_envs/113', headers=headers)
+response1 = requests.get('https://my.farmbot.io/' + 'api/farmware_env', headers=headers)
 bot_state1 = response1.json()
 
 #response2 = requests.get('https://my.farmbot.io/' + 'api/tools', headers=headers)
