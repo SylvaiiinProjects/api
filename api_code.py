@@ -51,6 +51,10 @@ response1 = requests.put('https://my.farmbot.io/' + 'api/farmware_envs/2800', he
 response1 = requests.get('https://my.farmbot.io/' + 'api/farmware_envs', headers=headers)
 bot_state1 = response1.json()
 
+response2 = requests.get('https://my.farmbot.io/' + 'api/tools', headers=headers)
+bot_state2 = response2.json()
+
 no_data(bot_state1)
+no_data(bot_state2)
 
 
